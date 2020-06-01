@@ -26,7 +26,6 @@ const MessageScreen = () => {
   const handleDelete = (message) => {
     const newMessage = messages.filter((m) => m.id !== message.id);
     setMessages(newMessage);
-  
   };
 
   return (
@@ -39,12 +38,10 @@ const MessageScreen = () => {
             title={item.title}
             subTitle={item.description}
             image={item.image}
-            onPress={() => console.log("messege selected")}
-            
-            renderRightActions={() => {
-              console.log("hello")
-              //<ListItemDeleteAction onPress={() => handleDelete(item)} />
-            }}
+            onPress={() => console.log("Message selected", item)}
+            renderRightActions={() => (
+              <ListItemDeleteAction onPress={() => handleDelete(item)} />
+            )}
           />
         )}
         ItemSeparatorComponent={ListItemSeperator}

@@ -9,9 +9,11 @@ import {
 } from "react-native";
 import AppText from "./AppText";
 import colors from "../config/colors";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
-const ListItem = ({ title, subTitle, image, IconComponent, onPress }) => {
+const ListItem = ({ title, subTitle, image, IconComponent, onPress, renderRightActions }) => {
   return (
+    <Swipeable renderRightActions={renderRightActions}>
     <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
       <View style={styles.container}>
         {IconComponent}
@@ -22,7 +24,9 @@ const ListItem = ({ title, subTitle, image, IconComponent, onPress }) => {
         </View>
       </View>
     </TouchableHighlight>
+    </Swipeable>
   );
+ 
 };
 
 export default ListItem;
