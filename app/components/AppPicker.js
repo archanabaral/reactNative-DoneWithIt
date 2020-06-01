@@ -1,27 +1,48 @@
-import React from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import React, { Fragment, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableWithoutFeedback,
+  Modal,
+  Button,
+  FlatList,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 import AppText from "./AppText";
-const AppPicker = ({ icon, placeholder, ...otherProps }) => {
+import PickerItem from "../components/PickerItem"
+
+const AppPicker = ({ icon, placeholder, items }) => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.container}>
-      {icon && (
-        <MaterialCommunityIcons
-          name={icon}
-          size={25}
-          color={colors.medium}
-          style={styles.icon}
-        />
-      )}
-      <AppText style={styles.text}>{placeholder}</AppText>
-      <MaterialCommunityIcons
-        name="chevron-down"
-        size={25}
-        color={colors.medium}
-      />
-    </View>
+    <Fragment>
+      <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+        <View style={styles.container}>
+          {icon && (
+            <MaterialCommunityIcons
+              name={icon}
+              size={25}
+              color={colors.medium}
+              style={styles.icon}
+            />
+          )}
+          <AppText style={styles.text}>{placeholder}</AppText>
+          <MaterialCommunityIcons
+            name="chevron-down"
+            size={25}
+            color={colors.medium}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+      {
+        <Modal visible={modalVisible} animationType="slide">
+          <Button title="Close" onPress={() => setModalVisible(false)}></Button>
+          <FlatList data={items} keyExtractor={ (item) => item.value.toString()} renderItem={({item}) => <PickerItem  label={item.label} onPress={() =>console.log(item)}/> }></FlatList>
+        </Modal>
+      }
+    </Fragment>
   );
 };
 
@@ -40,7 +61,7 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
-  text:{
-      flex:1
-  }
+  text: {
+    flex: 1,
+  },
 });
