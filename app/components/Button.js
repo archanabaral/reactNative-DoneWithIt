@@ -23,9 +23,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   text: {
-      fontSize:20,
+      fontSize:15,
       fontWeight:"bold",
-      textTransform:"uppercase"
+      textTransform:"uppercase",
+      color:colors.white
 
   },
 });
