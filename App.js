@@ -11,7 +11,7 @@ import AccountScreen from "./app/screens/AccountScreen";
 import ListingScreen from "./app/screens/ListingScreen";
 import AppTextInput from "./app/components/AppTextInput";
 import AppPicker from "./app/components/AppPicker";
-import LoginScreen from "./app/screens/LoginScreen";
+import ListEditScreen from "./app/screens/ListEditScreen";
 
 
 
@@ -19,7 +19,7 @@ export default function App() {
   
   return (
     <Screen>
-     <LoginScreen />
+     <ListEditScreen />
     </Screen>
   );
 }
