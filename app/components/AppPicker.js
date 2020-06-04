@@ -20,6 +20,8 @@ const AppPicker = ({
   items,
   selectedItem,
   onSelectItem,
+  numberOfColumns=1,
+  PickerItemComponent = PickerItem,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
@@ -34,9 +36,15 @@ const AppPicker = ({
               style={styles.icon}
             />
           )}
-          <AppText style={styles.text}>
+          {selectedItem ? (
+            <AppText style={styles.text}>{selectedItem.label}</AppText>
+          ) : (
+            <AppText style={styles.placeholder}>{placeholder}</AppText>
+          )}
+          {/* <AppText style={styles.text}>
             {selectedItem ? selectedItem.label : placeholder}
-          </AppText>
+          </AppText> */}
+
           <MaterialCommunityIcons
             name="chevron-down"
             size={25}
@@ -48,11 +56,13 @@ const AppPicker = ({
         <Modal visible={modalVisible} animationType="slide">
           <Button title="Close" onPress={() => setModalVisible(false)}></Button>
           <FlatList
+            
             data={items}
             keyExtractor={(item) => item.value.toString()}
+            numColumns={numberOfColumns}
             renderItem={({ item }) => (
-              <PickerItem
-                label={item.label}
+              <PickerItemComponent
+                item={item}
                 onPress={() => {
                   setModalVisible(false), onSelectItem(item);
                 }}
@@ -81,6 +91,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   text: {
+    flex: 1,
+  },
+  placeholder: {
+    color: colors.medium,
     flex: 1,
   },
 });
